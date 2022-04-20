@@ -37,11 +37,11 @@ header h1 {
     align-items: center;
 }
 
-.infos-basicas {
+.criacao-quizz {
     margin-top: 140px;
 }
 
-.infos-basicas h2 {
+.criacao-quizz h2 {
     font-weight: 700;
     font-size: 23px;
     line-height: 27px;
@@ -58,10 +58,9 @@ header h1 {
     padding: 22px 18px;
     background-color: #ffffff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 85px;
 }
 
-.caixa input {
+.criacao-quizz input {
     height: 46px;
     border: 1px solid #D1D1D1;
     border-radius: 5px;
@@ -72,12 +71,12 @@ header h1 {
     text-indent: 20px;
 }
 
-.caixa ::placeholder {
+.criacao-quizz ::placeholder {
     font-style: italic;
     color: #BABABA;
 }
 
-.infos-basicas .botao {
+.criacao-quizz .botao {
     width: 368px;
     height: 54px;
     background-color: #EC362D;
@@ -86,6 +85,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    margin-top: 85px;
 }
 
 .botao p {
@@ -94,21 +94,117 @@ header h1 {
     line-height: 25px;
     text-align: center;
     color: #FFF5F4;
+}
 
+.criacao-quizz h3 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.perguntas .caixa-pergunta {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding: 22px 18px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.caixa-pergunta .caixa-secundaria {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+}
+
+.caixa-pergunta .caixa-secundaria:last-child {
+    margin-bottom: 0;
+}
+
+.perguntas input {
+    margin-bottom: 14px;
+}
+
+.perguntas .space {
+    height: 22px;
+}
+
+.perguntas .caixa-editar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 600px;
+    height: 74px;
+    padding: 0 18px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 24px;
+}
+
+.caixa-editar h3 {
+    margin-bottom: 0;
+}
+
+.caixa-editar ion-icon {
+    cursor: pointer;
+    font-size: 26px;
+}
+
+.niveis .caixa-editar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 600px;
+    height: 74px;
+    padding: 0 18px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 24px;
+}
+
+.niveis .caixa-pergunta  {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    width: 600px;
+    height: 316px;
+    padding: 22px 18px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+span {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 @media (max-width: 1100px) {
-    .infos-basicas {
+
+    .criacao-quizz {
         margin-top: 106px;
+    }
+    .infos-basicas, .perguntas {
         width: 100%;
     }
     .infos-basicas .caixa {
         max-width: 600px;
         width: 100%;
-        margin-bottom: 29px;
     }
-    .infos-basicas .botao {
+    .criacao-quizz .botao {
         max-width: 324px;
+        width: 100%;
+        margin-top: 29px;
+    }
+
+    .perguntas .caixa-pergunta {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .perguntas .caixa-editar {
+        max-width: 600px;
         width: 100%;
     }
 }
