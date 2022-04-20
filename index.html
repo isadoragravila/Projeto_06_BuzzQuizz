@@ -17,7 +17,7 @@
         <h1>BuzzQuizz</h1>
     </header>
     <div class="criacao-quizz centralizado">
-        <div class="infos-basicas centralizado">
+        <div class="infos-basicas escondido">
             <h2>Comece pelo começo</h2>
             <div class="caixa">
                 <input class="titulo" placeholder="Título do seu quizz" />
@@ -27,15 +27,45 @@
             </div>
             <div class="botao"><p>Prosseguir pra criar perguntas</p></div>
         </div>
-
-
         
-        <div class="perguntas escondido"></div>
-        <div class="niveis escondido"></div>
-        <div class="sucesso escondido"></div>
+        <div class="perguntas escondido">
+
+
+        </div>
+        
+        <div class="niveis centralizado">
+            <h2>Agora, decida os níveis</h2>
+            <div class="caixa">
+                <span>Nível 1</span>
+                <input type="text" placeholder="Título do nível">
+                <input type="text" placeholder="% de acerto mínima">
+                <input type="text" placeholder="URL da imagem do nível">
+                <input type="text" placeholder="Descrição do nível">
+            </div>
+            <div class="caixa">
+                <span>Nível 2</span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="caixa">
+                <span>Nível 3</span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="botao">
+                <p>Finalizar Quizz</p>
+            </div>
+        </div>
+        <div class="sucesso escondido">
+            <h2>Seu quizz está pronto!</h2>
+            <div class="image-quizz">
+                <img src="" alt="">
+                <span class="subtitulo"></span>
+            </div>
+            <div class="botao">
+                <p>Acessar Quizz</p>
+            </div>
+            <p>Voltar pra home</p>
+        </div>
     </div>
-
-
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>

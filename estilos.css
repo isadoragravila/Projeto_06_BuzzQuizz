@@ -85,6 +85,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .botao p {
@@ -95,9 +96,6 @@ header h1 {
     color: #FFF5F4;
 
 }
-
-
-
 
 @media (max-width: 1100px) {
     .infos-basicas {
