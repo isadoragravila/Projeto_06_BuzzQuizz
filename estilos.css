@@ -1,5 +1,6 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
 }
 
 * {
@@ -24,4 +25,92 @@ header h1 {
     font-size: 37px;
     line-height: 43px;
     color: #ffffff;
+}
+
+.escondido {
+    display: none;
+}
+
+.centralizado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infos-basicas {
+    margin-top: 140px;
+}
+
+.infos-basicas h2 {
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    color: #000000;
+    margin-bottom: 29px;
+}
+
+.infos-basicas .caixa {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 600px;
+    height: 256px;
+    padding: 22px 18px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 85px;
+}
+
+.caixa input {
+    height: 46px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+    outline: none;
+    text-indent: 20px;
+}
+
+.caixa ::placeholder {
+    font-style: italic;
+    color: #BABABA;
+}
+
+.infos-basicas .botao {
+    width: 368px;
+    height: 54px;
+    background-color: #EC362D;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botao p {
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    text-align: center;
+    color: #FFF5F4;
+
+}
+
+
+
+
+@media (max-width: 1100px) {
+    .infos-basicas {
+        margin-top: 106px;
+        width: 100%;
+    }
+    .infos-basicas .caixa {
+        max-width: 600px;
+        width: 100%;
+        margin-bottom: 29px;
+    }
+    .infos-basicas .botao {
+        max-width: 324px;
+        width: 100%;
+    }
 }
