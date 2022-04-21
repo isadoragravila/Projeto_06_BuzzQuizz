@@ -19,6 +19,8 @@ let answer = {
     isCorrectAnswer: true
 }
 
+let API = https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes
+
 function enviarInfos () {
     const titulo = document.querySelector(".infos-basicas input.titulo").value;
     const url = document.querySelector(".infos-basicas input.url").value;
@@ -181,6 +183,32 @@ function coletarPerguntas () {
     document.querySelector(".niveis").classList.add("centralizado");
 
     //fazer innerHTML dos niveis aqui, parecido com a partir da linha 43
+    const elemento = document.querySelector(".niveis");
+    elemento.innerHTML += `
+        <h2>Agora, decida os níveis</h2>
+    `;
+
+    for(let i = 0; i < niveis.length; i++) {
+        elemento.innerHTML += `
+        <div class="caixa-pergunta">
+                <span>Nível ${i+1}</span>
+                <input class="titulo-nivel" placeholder="Título do nível">
+                <input class="%acerto" placeholder="% de acerto mínima">
+                <input class="url-imagem" placeholder="URL da imagem do nível">
+                <input class="descricao-nivel" placeholder="Descrição do nível">
+            </div>
+            <div class="caixa-editar">
+                <span>Nível ${i+1}</span>
+                <ion-icon name="create-outline"></ion-icon>
+            </div> 
+        `
+    }
+
+    elemento.innerHTML += `
+    <div class="botao" onclick="finalizarQuizz ()">
+                <p>Finalizar Quizz</p>
+            </div>
+    `
 }
 
 function verificacaoPerguntas (textoPergunta, corPergunta, respostaCorreta, imagemCorreta, respostaIncorreta1, imagemIncorreta1, respostaIncorreta2, imagemIncorreta2, respostaIncorreta3, imagemIncorreta3) {
@@ -211,9 +239,15 @@ function criarQuizz () {
 
 function finalizarQuizz () {
 
-    //coletar os dados dos niveis
+    //coletar os dados dos niveis 
+        //acho que fiz isso na função validarNivel()
+
     //verificar
-    //mandar para o objeto quizz
+        //acho que também fiz isso na função validarNível(), mas chamei essa função lá
+
+    //mandar para o objeto quizz 
+        //seria algo tipo:
+        //axios.post("API", {quizz})?
 
     document.querySelector(".niveis").classList.add("escondido");
     document.querySelector(".niveis").classList.remove("centralizado");
@@ -228,6 +262,8 @@ function validarNivel() {
     const descricao = document.querySelector("descricao-nivel").value
     if(titulo.length < 10 || porcentagemAcerto < 0 || porcentagemAcerto > 100 || descricao.length < 30) {
         return alert('Preencha os dados corretamente')
+    } else {
+    finalizarQuizz()
     }
 }
 
@@ -243,5 +279,5 @@ function listarQuizz () {
     document.querySelector(".sucesso").classList.add("escondido");
     document.querySelector(".primeira-tela").classList.add("centralizado");
     document.querySelector(".primeira-tela").classList.remove("escondido");
+    let promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
 }
-

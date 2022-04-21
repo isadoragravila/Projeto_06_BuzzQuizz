@@ -39,6 +39,7 @@ header h1 {
     border-radius: 5px;
     justify-content: center;
     margin-bottom: 77px;
+    cursor:pointer;
 }
 
 .borda-cinza .mensagem {
@@ -62,6 +63,7 @@ header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .botao-criar p {
