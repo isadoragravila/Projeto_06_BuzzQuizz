@@ -218,7 +218,7 @@ header h1 {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    margin-top: 85px;
+    margin-top: 75px;
 }
 
 .botao p {
@@ -246,7 +246,7 @@ header h1 {
     flex-direction: column;
 }
 
-.perguntas .alinhamento {
+.alinhamento {
     display: flex; 
 }
 
@@ -289,7 +289,6 @@ header h1 {
 }
 
 .niveis .caixa-editar {
-    display: flex;
     align-items: center;
     justify-content: space-between;
     width: 600px;
@@ -300,12 +299,12 @@ header h1 {
     margin-top: 24px;
 }
 
-.niveis .caixa-pergunta  {
-    display: flex; 
+.niveis .caixa-pergunta  { 
     flex-direction: column;
     justify-content: space-between;
     width: 600px;
     height: 316px;
+    margin-top: 24px;
     padding: 22px 18px;
     background-color: #ffffff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
@@ -318,11 +317,43 @@ span {
 
 .sucesso > p {
     color: #818181;
-    font-family: 'Roboto', sans-serif;
     font-size: 21px;
     margin-top: 19px;
-
+    cursor: pointer;
 }
+
+.imagem-quizz {
+    width: 500px;
+    height: 266px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    display: flex;
+    position: relative;
+    margin-top: 46px;
+}
+
+.imagem-quizz img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.imagem-quizz .nome-quizz {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+
 
 
 @media (max-width: 1100px) {
@@ -354,7 +385,7 @@ span {
     .criacao-quizz {
         margin-top: 106px;
     }
-    .infos-basicas, .perguntas, .pergunta-X {
+    .infos-basicas, .perguntas, .pergunta-X, .niveis {
         width: 100%;
     }
     .infos-basicas .caixa {
@@ -374,6 +405,28 @@ span {
 
     .perguntas .caixa-editar {
         max-width: 600px;
+        width: 100%;
+    }
+
+    .niveis .caixa-pergunta {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .niveis .caixa-editar {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .sucesso {
+        width: 100%;
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .sucesso .imagem-quizz {
+        max-width: 340px;
+        height: 181px;
         width: 100%;
     }
 }
