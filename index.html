@@ -17,48 +17,47 @@
         <h1>BuzzQuizz</h1>
     </header>
     <div class="primeira-tela centralizado">
-        <div class="borda-pontilhada centralizado">
-           <p>Você não criou nenhum <br> quizz ainda :(</p>
-            <div class="botao-criar" onclick="criarQuizz ()"><p>Criar quizz</p></div> 
-        </div>
-        <span>Todos os Quizzes</span>
-        <div class="todos-os-quizzes">
-            
-            <div class="quizz">
-                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
-                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-            </div>
-            <div class="quizz">
-                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
-                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-            </div>
-            <div class="quizz">
-                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
-                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-            </div>
-            <div class="quizz">
-                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
-                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-            </div>
-            <div class="quizz">
-                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
-                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-            </div><div class="quizz">
-                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
-                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-            </div>
-            
-        
         <div class="borda-cinza centralizado">
             <div class="mensagem"><p>Você não criou nenhum quizz ainda :(</p></div>
             <div class="botao-criar" onclick="criarQuizz ()"><p>Criar quizz</p></div>
         </div>
-        <div class="meus-quizzes">
+        <div class="meus-quizzes escondido">
             <div class="titulo-quizzes">
                 <h2>Seus Quizzes</h2>
                 <ion-icon name="add-circle" onclick="criarQuizz ()"></ion-icon>
             </div>
             <div class="quizzes">
+                <div class="quizz">
+                    <img src="https://rollingstone.uol.com.br/media/_versions/os-simpsons-teoria-final_widelg.jpg" />
+                    <div class="nome-quizz">
+                        <h4>Título do quiz gigante para dar duas linhas e ver de qual</h4>
+                    </div>
+                </div>
+                <div class="quizz">
+                    <img src="https://rollingstone.uol.com.br/media/_versions/os-simpsons-teoria-final_widelg.jpg" />
+                    <div class="nome-quizz">
+                        <h4>Título do quiz gigante para dar duas linhas e ver de qual</h4>
+                    </div>
+                </div>
+                <div class="quizz">
+                    <img src="https://rollingstone.uol.com.br/media/_versions/os-simpsons-teoria-final_widelg.jpg" />
+                    <div class="nome-quizz">
+                        <h4>Título do quiz gigante para dar duas linhas e ver de qual</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="todos-os-quizzes">
+            <div class="titulo-quizzes">
+                <span>Todos os Quizzes</span>
+            </div>
+            <div class="quizzes">
+                <div class="quizz">
+                    <img src="https://rollingstone.uol.com.br/media/_versions/os-simpsons-teoria-final_widelg.jpg" />
+                    <div class="nome-quizz">
+                        <h4>Título do quiz gigante para dar duas linhas e ver de qual</h4>
+                    </div>
+                </div>
                 <div class="quizz">
                     <img src="https://rollingstone.uol.com.br/media/_versions/os-simpsons-teoria-final_widelg.jpg" />
                     <div class="nome-quizz">
@@ -90,47 +89,13 @@
                 <input class="qtd-perguntas" placeholder="Quantidade de perguntas do quizz" />
                 <input class="qtd-niveis" placeholder="Quantidade de níveis do quizz" />
             </div>
-            <div class="botao"><p>Prosseguir pra criar perguntas</p></div>
+            <div class="botao" onclick="enviarInfos ()">
+                <p>Prosseguir pra criar perguntas</p>
+            </div>
         </div>
-       
-        <div class="perguntas escondido">
-            <h2>Crie suas perguntas</h2>
-            <div class="caixa-pergunta">
-                <div class="caixa-secundaria">
-                    <h3>Pergunta 1</h3>
-                    <input class="texto-pergunta" placeholder="Texto da pergunta" />
-                    <input class="cor-pergunta" placeholder="Cor de fundo da pergunta" />
-                </div>
-                <div class="caixa-secundaria">
-                    <h3>Resposta correta</h3>
-                    <input class="resposta-correta" placeholder="Resposta correta" />
-                    <input class="url-imagem" placeholder="URL da imagem" />
-                </div>
-                <div class="caixa-secundaria">
-                    <h3>Respostas incorretas</h3>
-                    <input class="resposta-incorreta" placeholder="Resposta incorreta 1" />
-                    <input class="url-imagem" placeholder="URL da imagem 1" />
-                    <div class="space"></div>
-                    <input class="resposta-incorreta" placeholder="Resposta incorreta 2" />
-                    <input class="url-imagem" placeholder="URL da imagem 2" />
-                    <div class="space"></div>
-                    <input class="resposta-incorreta" placeholder="Resposta incorreta 3" />
-                    <input class="url-imagem" placeholder="URL da imagem 3" />
-                </div> 
-            </div>
-            <div class="caixa-editar">
-                <h3>Pergunta 2</h3>
-                <ion-icon name="create-outline"></ion-icon>
-            </div>
-            <div class="caixa-editar">
-                <h3>Pergunta 3</h3>
-                <ion-icon name="create-outline"></ion-icon>
-            </div>
-            <div class="botao"><p>Prosseguir pra criar níveis</p></div>
-            <div class="botao" onclick="enviarInfos ()"><p>Prosseguir pra criar perguntas</p></div>
-        </div>
+
         <div class="perguntas escondido"></div>
-        
+
         <div class="niveis escondido">
             <h2>Agora, decida os níveis</h2>
             <div class="caixa-pergunta">
@@ -148,7 +113,7 @@
                 <span>Nível 3</span>
                 <ion-icon name="create-outline"></ion-icon>
             </div>
-            <div class="botao">
+            <div class="botao" onclick="finalizarQuizz ()">
                 <p>Finalizar Quizz</p>
             </div>
         </div>

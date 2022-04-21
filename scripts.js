@@ -180,7 +180,7 @@ function coletarPerguntas () {
     document.querySelector(".niveis").classList.remove("escondido");
     document.querySelector(".niveis").classList.add("centralizado");
 
-
+    //fazer innerHTML dos niveis aqui, parecido com a partir da linha 43
 }
 
 function verificacaoPerguntas (textoPergunta, corPergunta, respostaCorreta, imagemCorreta, respostaIncorreta1, imagemIncorreta1, respostaIncorreta2, imagemIncorreta2, respostaIncorreta3, imagemIncorreta3) {
@@ -209,6 +209,18 @@ function criarQuizz () {
     document.querySelector(".infos-basicas").classList.remove("escondido");
 }
 
+function finalizarQuizz () {
+
+    //coletar os dados dos niveis
+    //verificar
+    //mandar para o objeto quizz
+
+    document.querySelector(".niveis").classList.add("escondido");
+    document.querySelector(".niveis").classList.remove("centralizado");
+    document.querySelector(".sucesso").classList.remove("escondido");
+    document.querySelector(".sucesso").classList.add("centralizado");
+}
+
 function validarNivel() {
     const titulo = document.querySelector(".titulo-nivel").value
     const porcentagemAcerto = Math.floor(document.querySelector("%acerto").value)
@@ -226,4 +238,10 @@ function validarSucesso() {
     }
 }
 
+function listarQuizz () {
+    document.querySelector(".sucesso").classList.remove("centralizado");
+    document.querySelector(".sucesso").classList.add("escondido");
+    document.querySelector(".primeira-tela").classList.add("centralizado");
+    document.querySelector(".primeira-tela").classList.remove("escondido");
+}
 
