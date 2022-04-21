@@ -16,14 +16,50 @@
     <header>
         <h1>BuzzQuizz</h1>
     </header>
-    <div class="criacao-quizz centralizado">
+    <div class="primeira-tela centralizado">
+        <div class="borda-pontilhada centralizado">
+           <p>Você não criou nenhum <br> quizz ainda :(</p>
+            <div class="botao-criar" onclick="criarQuizz ()"><p>Criar quizz</p></div> 
+        </div>
+        <span>Todos os Quizzes</span>
+        <div class="todos-os-quizzes">
+            
+            <div class="quizz">
+                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
+                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+            </div>
+            <div class="quizz">
+                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
+                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+            </div>
+            <div class="quizz">
+                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
+                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+            </div>
+            <div class="quizz">
+                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
+                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+            </div>
+            <div class="quizz">
+                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
+                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+            </div><div class="quizz">
+                <img src="/Projeto_06_BuzzQuizz/assets/Rectangle 34.png">
+                <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+            </div>
+            
+        
+        </div>
+        
+    </div>
+    <div class="criacao-quizz escondido">
         <div class="infos-basicas escondido">
             <h2>Comece pelo começo</h2>
             <div class="caixa">
                 <input class="titulo" placeholder="Título do seu quizz" />
                 <input class="url" placeholder="URL da imagem do seu quizz" />
-                <input class="perguntas" placeholder="Quantidade de perguntas do quizz" />
-                <input class="niveis" placeholder="Quantidade de níveis do quizz" />
+                <input class="qtd-perguntas" placeholder="Quantidade de perguntas do quizz" />
+                <input class="qtd-niveis" placeholder="Quantidade de níveis do quizz" />
             </div>
             <div class="botao"><p>Prosseguir pra criar perguntas</p></div>
         </div>
@@ -62,15 +98,18 @@
                 <ion-icon name="create-outline"></ion-icon>
             </div>
             <div class="botao"><p>Prosseguir pra criar níveis</p></div>
+            <div class="botao" onclick="enviarInfos ()"><p>Prosseguir pra criar perguntas</p></div>
         </div>
+        <div class="perguntas escondido"></div>
         
-        <div class="niveis centralizado">
+        <div class="niveis escondido">
+            <h2>Agora, decida os níveis</h2>
             <div class="caixa-pergunta">
                 <span>Nível 1</span>
-                <input name="Título "placeholder="Título do nível">
-                <input placeholder="% de acerto mínima">
-                <input placeholder="URL da imagem do nível">
-                <input placeholder="Descrição do nível">
+                <input class="titulo-nivel" placeholder="Título do nível">
+                <input class="%acerto" placeholder="% de acerto mínima">
+                <input class="url-imagem" placeholder="URL da imagem do nível">
+                <input class="descricao-nivel" placeholder="Descrição do nível">
             </div>
             <div class="caixa-editar">
                 <span>Nível 2</span>
@@ -88,13 +127,13 @@
         <div class="sucesso escondido">
             <span>Seu quizz está pronto</span>
             <div class="imagem-quizz">
-                <img src="">
+                <img onclick="exibirQuizz()" src="">
                 <p></p>
             </div>
             <div class="botao">
-                <p>Acessar Quizz</p>
+                <p onclick="exibirQuizz()">Acessar Quizz</p>
             </div>
-            <p>Voltar pra home</p>
+            <p onclick="listarQuizz()">Voltar pra home</p>
         </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
