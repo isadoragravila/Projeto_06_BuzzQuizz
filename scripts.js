@@ -27,14 +27,13 @@ function enviarInfos () {
     perguntas = parseInt(perguntas);
     niveis = parseInt(niveis);
     
-    // if (verificacaoInfos (titulo, url, perguntas, niveis)) {
-    //     alert ("Preencha os dados corretamente");
-    //     return;
-    // }
+    if (verificacaoInfos (titulo, url, perguntas, niveis)) {
+        alert ("Preencha os dados corretamente");
+        return;
+    }
 
     quizz.title = titulo;
     quizz.image = url;
-
 
     document.querySelector(".infos-basicas").classList.add("escondido");
     document.querySelector(".infos-basicas").classList.remove("centralizado");
@@ -118,10 +117,10 @@ function coletarPerguntas () {
     const respostaIncorreta3 = document.querySelectorAll(".perguntas .resposta-3");
     const imagemIncorreta3 = document.querySelectorAll(".perguntas .imagem-3");
 
-    // if (verificacaoPerguntas (textoPergunta, corPergunta, respostaCorreta, imagemCorreta, respostaIncorreta1, imagemIncorreta1, respostaIncorreta2, imagemIncorreta2, respostaIncorreta3, imagemIncorreta3)) {
-    //     alert ("Preencha os dados corretamente");
-    //     return;
-    // }
+    if (verificacaoPerguntas (textoPergunta, corPergunta, respostaCorreta, imagemCorreta, respostaIncorreta1, imagemIncorreta1, respostaIncorreta2, imagemIncorreta2, respostaIncorreta3, imagemIncorreta3)) {
+        alert ("Preencha os dados corretamente");
+        return;
+    }
     
     for (let i = 0; i < perguntas; i++) {
         question.title = textoPergunta[i].value;
@@ -168,7 +167,6 @@ function coletarPerguntas () {
                 isCorrectAnswer: true
             }
         }
-
         quizz.questions.push(question);
         question = {
             title: "",
@@ -182,8 +180,6 @@ function coletarPerguntas () {
     document.querySelector(".niveis").classList.remove("escondido");
     document.querySelector(".niveis").classList.add("centralizado");
 
-
-    //colocar os niveis no innerHTML niveis
 
 }
 
