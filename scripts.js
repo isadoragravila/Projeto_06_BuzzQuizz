@@ -122,11 +122,11 @@ function coletarPerguntas () {
         return;
     }
     
-    //POR ENQUANTO DESCONSIDERA ISSO
-        question.title = textoPergunta[0].value;
-        question.color = corPergunta[0].value;
-        answer.text = respostaCorreta[0].value;
-        answer.image = imagemCorreta[0].value;
+    for (let i = 0; i < perguntas; i++) {
+        question.title = textoPergunta[i].value;
+        question.color = corPergunta[i].value;
+        answer.text = respostaCorreta[i].value;
+        answer.image = imagemCorreta[i].value;
         answer.isCorrectAnswer = true;
         question.answers.push(answer);
         answer = {
@@ -134,37 +134,52 @@ function coletarPerguntas () {
             image: "",
             isCorrectAnswer: true
         }
-        answer.text = respostaIncorreta1[0].value;
-        answer.image = imagemIncorreta1[0].value;
-        answer.isCorrectAnswer = false;
-        question.answers.push(answer);
-        answer = {
-            text: "",
-            image: "",
-            isCorrectAnswer: true
+        if (respostaIncorreta1[i].value !== "") {
+            answer.text = respostaIncorreta1[i].value;
+            answer.image = imagemIncorreta1[i].value;
+            answer.isCorrectAnswer = false;
+            question.answers.push(answer);
+            answer = {
+                text: "",
+                image: "",
+                isCorrectAnswer: true
+            }
         }
-        answer.text = respostaIncorreta2[0].value;
-        answer.image = imagemIncorreta2[0].value;
-        answer.isCorrectAnswer = false;
-        question.answers.push(answer);
-        answer = {
-            text: "",
-            image: "",
-            isCorrectAnswer: true
+        if (respostaIncorreta2[i].value !== "") {
+            answer.text = respostaIncorreta2[i].value;
+            answer.image = imagemIncorreta2[i].value;
+            answer.isCorrectAnswer = false;
+            question.answers.push(answer);
+            answer = {
+                text: "",
+                image: "",
+                isCorrectAnswer: true
+            }
         }
-        answer.text = respostaIncorreta3[0].value;
-        answer.image = imagemIncorreta3[0].value;
-        answer.isCorrectAnswer = false;
-        question.answers.push(answer);
-        answer = {
-            text: "",
-            image: "",
-            isCorrectAnswer: true
+        if (respostaIncorreta3[i].value !== "") {
+            answer.text = respostaIncorreta3[i].value;
+            answer.image = imagemIncorreta3[i].value;
+            answer.isCorrectAnswer = false;
+            question.answers.push(answer);
+            answer = {
+                text: "",
+                image: "",
+                isCorrectAnswer: true
+            }
         }
         quizz.questions.push(question);
+        question = {
+            title: "",
+            color: "",
+            answers: []
+        }
+    }
 
+    document.querySelector(".perguntas").classList.add("escondido");
+    document.querySelector(".perguntas").classList.remove("centralizado");
+    document.querySelector(".niveis").classList.remove("escondido");
+    document.querySelector(".niveis").classList.add("centralizado");
 
-    //colocar os niveis no innerHTML niveis
 
 }
 
