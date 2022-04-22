@@ -156,7 +156,7 @@ function abrirPerguntaX (elemento) {
     pai.classList.add("escondido");
     pai.classList.remove("alinhamento");
     avo.querySelector(".caixa-pergunta").classList.add("alinhamento");
-    avo.querySelector(".caixa-pergunta").classList.add("escondido");
+    avo.querySelector(".caixa-pergunta").classList.remove("escondido");
 }
 
 function coletarPerguntas () {

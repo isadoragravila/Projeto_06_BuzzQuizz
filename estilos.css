@@ -110,6 +110,145 @@ header h1 {
     margin-bottom: 48px;
 }
 
+.faixa-quizz {
+    width: 1440px;
+    height: 227px;
+    margin-bottom: 42px;
+}
+
+.titulo-do-quizz {
+    font-size: 39px;
+    font-family:"Roboto";
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+    background-image:;
+}
+
+.caixa-quizz {
+    width: 759px;
+    height: 676px;
+    background-color: #ffffff;
+}
+
+.pergunta-quizz {
+    width: 688.16px;
+    height: 137.99px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 27px;
+    margin-bottom: 20px;
+}
+
+.pergunta-quizz > p {
+    font-size: 23px;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.resposta-quizz {
+    width: 759px;
+    height: 430px;
+    background-color: #FFFFFF;
+    margin-top: 44px;
+}
+
+.resposta-quizz > p {
+    color: #818181;
+    font-size: 21px;
+    margin-top: 19px;
+    cursor: pointer;
+}
+
+.titulo-resposta {
+    background: #EC362D;
+    width: 727px;
+    height: 99px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.titulo-resposta > p {
+ color: #ffffff;
+ font-size: 19px;
+ margin-top: 45px;
+ font-weight: bold;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex > img {
+    width: 364px; 
+    height: 273px;
+    margin-left: 25px;
+}
+
+.flex > p {
+    color: #484848;
+    margin-right: 28px;
+    margin-left: 21px;
+    font-weight: bold;
+    font-size: 19px;
+}
+.azul {
+    background: #434CA0;
+}
+
+.roxo {
+    background: #A0438D;
+}
+
+.vermelho {
+color: #FF4B4B;
+}
+
+.opacidade {
+    opacity: 0.3;
+}
+
+.opacidade-zero {
+opacity: 0;
+}
+
+.verde {
+   color: #009C22;    
+}
+
+.imagens-quizz {
+    flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagens-quizz > img {
+ width: 331.94px;
+ height: 175.2px;    
+}
+
+.imagens-quizz > p {
+font-size: 20px;
+font-weight: bold;
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+color: #000000;
+}
+
+.card-resposta {
+    margin-right: 11px;
+    margin-bottom: 18px;
+    margin-left: 11px;
+}
+
+.card-resposta > p {
+    margin-top: 4px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+}
+
 .todos-os-quizzes .titulo-quizzes {
     width: 100%;
     display: flex;
@@ -169,6 +308,7 @@ header h1 {
     flex-direction: column;
     align-items: center;
 }
+
 
 .criacao-quizz {
     margin-top: 140px;
