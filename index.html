@@ -37,34 +37,32 @@
         
     </div>
 
-    <div class="pagina-de-um-quizz centralizado">
-        <header>
-            <h1>BuzzQuizz</h1>
-        </header>
+    <div class="pagina-de-um-quizz escondido">
         <div class="faixa-quizz">
-            <p class="titulo-do-quizz">
-                O quão Potterhead é você?
-            </p>
+            <img src="http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg" >
+            <div class="titulo-do-quizz">
+                <p>O quão Potterhead é você?</p>
+            </div>
         </div>
         <div class="caixa-quizz centralizado">
-            <div class="pergunta-quizz azul flex">
-                <p class="centralizado">Em qual animal Olho-Tonto Moody transfigurou Malfoy?</p>
+            <div class="pergunta-quizz azul">
+                <p>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</p>
             </div>
-            <div class="imagens-quizz flex">
+            <div class="imagens-quizz">
                 <div class="card-resposta">
-                    <img src="/Projeto_06_BuzzQuizz/assets/image 4.png" >
+                    <img src="http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg" >
                     <p>Ratata</p>
                 </div>
                 <div class="card-resposta">
-                    <img src="/Projeto_06_BuzzQuizz/assets/image 4.png" >
+                    <img src="http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg" >
                     <p>Ratata</p>
                 </div>
                 <div class="card-resposta">
-                    <img src="/Projeto_06_BuzzQuizz/assets/image 4.png" >
+                    <img src="http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg" >
                     <p>Ratata</p>
                 </div>
                 <div class="card-resposta">
-                    <img src="/Projeto_06_BuzzQuizz/assets/image 4.png" >
+                    <img src="http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg" >
                     <p>Ratata</p>
                 </div> 
             </div>
@@ -73,16 +71,18 @@
             <div class="titulo-resposta">
                 <p>88% de acerto: Você é praticamente um aluno de Hogwarts!</p>
             </div>
-            <div class="flex">
-                <img src="/Projeto_06_BuzzQuizz/assets/image 10.png">
+            <div class="caixa-resultado">
+                <img src="http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg">
                 <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
             </div>
         </div>
-        <div class="botao">
+        <div class="botao" onclick="reiniciarQuizz()">
             <p>Reiniciar quizz</p>
         </div>
-        <p class="centralizado" onclick="listarQuizz()">Voltar pra home</p>
+        <p onclick="listarQuizz()">Voltar pra home</p>
+
     </div>
+
 
     <div class="criacao-quizz escondido">
         <div class="infos-basicas escondido">
@@ -104,8 +104,7 @@
 
         <div class="sucesso escondido">
             <span>Seu quizz está pronto</span>
-            <div class="imagem-quizz">
-            </div>
+            <div class="imagem-quizz"></div>
             <div class="botao">
                 <p onclick="exibirQuizzUnico()">Acessar Quizz</p>
             </div>

@@ -110,145 +110,6 @@ header h1 {
     margin-bottom: 48px;
 }
 
-.faixa-quizz {
-    width: 1440px;
-    height: 227px;
-    margin-bottom: 42px;
-}
-
-.titulo-do-quizz {
-    font-size: 39px;
-    font-family:"Roboto";
-    text-align: center;
-    color: #ffffff;
-    text-align: center;
-    background-image:;
-}
-
-.caixa-quizz {
-    width: 759px;
-    height: 676px;
-    background-color: #ffffff;
-}
-
-.pergunta-quizz {
-    width: 688.16px;
-    height: 137.99px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 27px;
-    margin-bottom: 20px;
-}
-
-.pergunta-quizz > p {
-    font-size: 23px;
-    color: #ffffff;
-    font-weight: bold;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.resposta-quizz {
-    width: 759px;
-    height: 430px;
-    background-color: #FFFFFF;
-    margin-top: 44px;
-}
-
-.resposta-quizz > p {
-    color: #818181;
-    font-size: 21px;
-    margin-top: 19px;
-    cursor: pointer;
-}
-
-.titulo-resposta {
-    background: #EC362D;
-    width: 727px;
-    height: 99px;
-    margin-top: 18px;
-    margin-bottom: 18px;
-    text-align: center;
-}
-
-.titulo-resposta > p {
- color: #ffffff;
- font-size: 19px;
- margin-top: 45px;
- font-weight: bold;
-}
-
-.flex {
-    display: flex;
-}
-
-.flex > img {
-    width: 364px; 
-    height: 273px;
-    margin-left: 25px;
-}
-
-.flex > p {
-    color: #484848;
-    margin-right: 28px;
-    margin-left: 21px;
-    font-weight: bold;
-    font-size: 19px;
-}
-.azul {
-    background: #434CA0;
-}
-
-.roxo {
-    background: #A0438D;
-}
-
-.vermelho {
-color: #FF4B4B;
-}
-
-.opacidade {
-    opacity: 0.3;
-}
-
-.opacidade-zero {
-opacity: 0;
-}
-
-.verde {
-   color: #009C22;    
-}
-
-.imagens-quizz {
-    flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.imagens-quizz > img {
- width: 331.94px;
- height: 175.2px;    
-}
-
-.imagens-quizz > p {
-font-size: 20px;
-font-weight: bold;
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-color: #000000;
-}
-
-.card-resposta {
-    margin-right: 11px;
-    margin-bottom: 18px;
-    margin-left: 11px;
-}
-
-.card-resposta > p {
-    margin-top: 4px;
-    font-size: 18px;
-    font-weight: 700;
-    color: #000000;
-}
-
 .todos-os-quizzes .titulo-quizzes {
     width: 100%;
     display: flex;
@@ -297,6 +158,7 @@ color: #000000;
     line-height: 22px;
     margin: 0 18px 10px 18px;
     color: #FFFFFF;
+    word-break: break-word;
 }
 
 .escondido {
@@ -458,6 +320,7 @@ span {
 .sucesso > p {
     color: #818181;
     font-size: 21px;
+    line-height: 25px;
     margin-top: 19px;
     cursor: pointer;
 }
@@ -492,9 +355,194 @@ span {
     align-items: flex-end;
 }
 
+.pagina-de-um-quizz {
+    margin-top: 69px;
+}
+
+.faixa-quizz {
+    width: 100%;
+    height: 227px;
+    margin-bottom: 42px;
+    display: flex;
+    position: relative;
+}
+
+.faixa-quizz img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.faixa-quizz .titulo-do-quizz {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faixa-quizz .titulo-do-quizz p {
+    font-size: 39px;
+    font-weight: 400;
+    line-height: 46px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.caixa-quizz {
+    width: 759px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    padding: 0 36px;
+}
+
+.caixa-quizz .pergunta-quizz {
+    width: 100%;
+    height: 138px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 27px;
+    margin-bottom: 18px;
+}
+
+.caixa-quizz .pergunta-quizz p {
+    font-size: 23px;
+    line-height: 27px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.resposta-quizz {
+    width: 759px;
+    padding: 0 18px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 44px;
+}
+
+.resposta-quizz .titulo-resposta {
+    background: #EC362D;
+    width: 100%;
+    height: 99px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    
+}
+
+.resposta-quizz .titulo-resposta p {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    text-align: center;
+    word-break: break-word;
+}
+
+.resposta-quizz .caixa-resultado {
+    display: flex;
+}
+
+.resposta-quizz img {
+    width: 364px; 
+    height: 273px;
+    object-fit: cover;
+    margin-bottom: 22px;
+}
+
+.resposta-quizz .caixa-resultado p {
+    color: #484848;
+    margin-left: 21px;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 25px;
+    margin-bottom: 22px;
+    word-break: break-word;
+}
+
+.caixa-quizz .imagens-quizz {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.caixa-quizz .imagens-quizz img {
+    width: 100%;
+    height: 175px;
+    object-fit: cover; 
+}
+
+.caixa-quizz .imagens-quizz p {
+    font-size: 20px;
+    line-height: 23px;
+    font-weight: 700;
+    color: #000000;
+    word-break: break-word;
+}
+
+.card-resposta {
+    width: 330px;
+    margin-bottom: 18px;
+}
+
+.pagina-de-um-quizz .botao {
+    width: 261px;
+    height: 52px;
+    background-color: #EC362D;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 57px;
+    margin-bottom: 30px;
+}
+
+.pagina-de-um-quizz > p {
+    color: #818181;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+}
 
 
+.azul {
+    background: #434CA0;
+}
 
+.roxo {
+    background: #A0438D;
+}
+
+.vermelho {
+color: #FF4B4B;
+}
+
+.opacidade {
+    opacity: 0.3;
+}
+
+.opacidade-maxima {
+opacity: 1;
+}
+
+.verde {
+   color: #009C22;    
+}
 
 @media (max-width: 1100px) {
 
@@ -568,5 +616,106 @@ span {
         max-width: 340px;
         height: 181px;
         width: 100%;
+    }
+
+    .sucesso > p {
+        font-size: 18px;
+        line-height: 21px;
+    }
+
+    .faixa-quizz {
+        height: 142px;
+    }
+
+    .faixa-quizz .titulo-do-quizz p {
+        font-size: 19px;
+        line-height: 22px;
+    }
+
+    .caixa-quizz {
+        max-width: 375px;
+        width: 100%;
+        padding: 0 18px;
+        
+    }
+    
+    .caixa-quizz .pergunta-quizz {
+        height: 89px;
+        margin-top: 18px;
+        margin-bottom: 12px;
+    }
+    
+    .caixa-quizz .pergunta-quizz p {
+        font-size: 19px;
+        line-height: 22px;
+    }
+
+    .caixa-quizz .imagens-quizz {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .caixa-quizz .imagens-quizz img {
+        height: 113px;
+    }
+    
+    .caixa-quizz .imagens-quizz p {
+        font-size: 13px;
+        line-height: 15px;
+    }
+
+    .card-resposta {
+        width: 163px;
+        margin-bottom: 10px;
+    }
+
+    .resposta-quizz {
+        max-width: 375px;
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    .resposta-quizz .titulo-resposta {
+        margin-bottom: 9px;
+    }
+
+    .resposta-quizz .titulo-resposta p {
+        font-size: 19px;
+        line-height: 22px;
+    }
+
+    .resposta-quizz .caixa-resultado {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .resposta-quizz img {
+        width: 100%; 
+        height: 255px;
+        margin-bottom: 9px;
+    }
+
+    .resposta-quizz .caixa-resultado p {
+        font-size: 17px;
+        line-height: 20px;
+        margin-bottom: 14px;
+        margin-left: 0;
+    }
+
+    .pagina-de-um-quizz .botao {
+        max-width: 220px;
+        width: 100%;
+        height: 44px;
+        margin-top: 34px;
+    }
+
+    .pagina-de-um-quizz > p {
+        font-size: 18px;
+        line-height: 21px;
+    }
+
+    .botao p {
+        font-size: 18px;
+        line-height: 21px;
     }
 }
