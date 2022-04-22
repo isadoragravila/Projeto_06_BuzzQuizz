@@ -1,3 +1,5 @@
+let tituloQuizz;
+let url;
 let perguntas;
 let niveis;
 let quizz = {
@@ -19,22 +21,68 @@ let answer = {
     isCorrectAnswer: true
 }
 
-let API = https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes
+let level = {
+    title: "",
+    image: "",
+    text: "",
+    minValue: 0
+}
+
+let API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
+
+function criarQuizz () {
+    document.querySelector(".primeira-tela").classList.remove("centralizado");
+    document.querySelector(".primeira-tela").classList.add("escondido");
+    document.querySelector(".criacao-quizz").classList.add("centralizado");
+    document.querySelector(".criacao-quizz").classList.remove("escondido");
+    document.querySelector(".infos-basicas").classList.add("centralizado");
+    document.querySelector(".infos-basicas").classList.remove("escondido");
+
+    tituloQuizz = "";
+    url = "";
+    perguntas = 0;
+    niveis = 0;
+    quizz = {
+        title: "",
+        image: "",
+        questions: [],
+        levels: []
+    }
+
+    question = {
+        title: "",
+        color: "",
+        answers: []
+    }
+
+    answer = {
+        text: "",
+        image: "",
+        isCorrectAnswer: true
+    }
+
+    level = {
+        title: "",
+        image: "",
+        text: "",
+        minValue: 0
+    }
+}
 
 function enviarInfos () {
-    const titulo = document.querySelector(".infos-basicas input.titulo").value;
-    const url = document.querySelector(".infos-basicas input.url").value;
+    tituloQuizz = document.querySelector(".infos-basicas input.titulo").value;
+    url = document.querySelector(".infos-basicas input.url").value;
     perguntas = document.querySelector(".infos-basicas input.qtd-perguntas").value;
     niveis = document.querySelector(".infos-basicas input.qtd-niveis").value;
     perguntas = parseInt(perguntas);
     niveis = parseInt(niveis);
     
-    if (verificacaoInfos (titulo, url, perguntas, niveis)) {
+    if (verificacaoInfos (tituloQuizz, url, perguntas, niveis)) {
         alert ("Preencha os dados corretamente");
         return;
     }
 
-    quizz.title = titulo;
+    quizz.title = tituloQuizz;
     quizz.image = url;
 
     document.querySelector(".infos-basicas").classList.add("escondido");
@@ -83,6 +131,11 @@ function enviarInfos () {
     elemento.innerHTML += `
         <div class="botao" onclick="coletarPerguntas ()"><p>Prosseguir pra criar níveis</p></div>
     `;
+
+    document.querySelector(".infos-basicas input.titulo").value = "";
+    document.querySelector(".infos-basicas input.url").value = "";
+    document.querySelector(".infos-basicas input.qtd-perguntas").value = "";
+    document.querySelector(".infos-basicas input.qtd-niveis").value = "";
 }
 
 function verificacaoInfos (titulo, url, perguntas, niveis) {
@@ -181,30 +234,30 @@ function coletarPerguntas () {
     document.querySelector(".niveis").classList.remove("escondido");
     document.querySelector(".niveis").classList.add("centralizado");
 
-    //fazer innerHTML dos niveis aqui, parecido com a partir da linha 43
     const elemento = document.querySelector(".niveis");
-    elemento.innerHTML += `
+    elemento.innerHTML = `
         <h2>Agora, decida os níveis</h2>
     `;
 
-    for(let i = 0; i < niveis.length; i++) {
+    for(let i = 0; i < niveis; i++) {
         elemento.innerHTML += `
-        <div class="caixa-pergunta">
-                <span>Nível ${i+1}</span>
-                <input class="titulo-nivel" placeholder="Título do nível">
-                <input class="%acerto" placeholder="% de acerto mínima">
-                <input class="url-imagem" placeholder="URL da imagem do nível">
-                <input class="descricao-nivel" placeholder="Descrição do nível">
+            <div class="pergunta-X centralizado">
+                <div class="caixa-pergunta escondido">
+                    <span>Nível ${i+1}</span>
+                    <input class="titulo-nivel" placeholder="Título do nível">
+                    <input class="porcentagem-acerto" placeholder="% de acerto mínima">
+                    <input class="url-imagem" placeholder="URL da imagem do nível">
+                    <input class="descricao-nivel" placeholder="Descrição do nível">
+                </div>
+                <div class="caixa-editar alinhamento">
+                    <span>Nível ${i+1}</span>
+                    <ion-icon name="create-outline" onclick="abrirPerguntaX (this)"></ion-icon>
+                </div>
             </div>
-            <div class="caixa-editar">
-                <span>Nível ${i+1}</span>
-                <ion-icon name="create-outline"></ion-icon>
-            </div> 
         `
     }
-
     elemento.innerHTML += `
-    <div class="botao" onclick="finalizarQuizz ()">
+            <div class="botao" onclick="finalizarQuizz ()">
                 <p>Finalizar Quizz</p>
             </div>
     `
@@ -227,51 +280,95 @@ function verificacaoPerguntas (textoPergunta, corPergunta, respostaCorreta, imag
     }
 }
 
-function criarQuizz () {
-    document.querySelector(".primeira-tela").classList.remove("centralizado");
-    document.querySelector(".primeira-tela").classList.add("escondido");
-    document.querySelector(".criacao-quizz").classList.add("centralizado");
-    document.querySelector(".criacao-quizz").classList.remove("escondido");
-    document.querySelector(".infos-basicas").classList.add("centralizado");
-    document.querySelector(".infos-basicas").classList.remove("escondido");
-}
-
 function finalizarQuizz () {
+    const tituloNivel = document.querySelectorAll(".niveis .titulo-nivel");
+    const porcentagemAcerto = document.querySelectorAll(".niveis .porcentagem-acerto");
+    const urlNivel = document.querySelectorAll(".niveis .url-imagem");
+    const descricao = document.querySelectorAll(".niveis .descricao-nivel");
 
-    //coletar os dados dos niveis 
-        //acho que fiz isso na função validarNivel()
+    const percentualNumero = [];
+    for (let i = 0; i < niveis; i++) {
+        percentualNumero.push(Number(porcentagemAcerto[i].value));
+    }
 
-    //verificar
-        //acho que também fiz isso na função validarNível(), mas chamei essa função lá
+    if (validarNivel (tituloNivel, percentualNumero, urlNivel, descricao)) {
+        alert ("Preencha os dados corretamente");
+        return;
+    }
 
-    //mandar para o objeto quizz 
-        //seria algo tipo:
-        //axios.post("API", {quizz})?
+    for (let i = 0; i < niveis; i++) {
+        level.title = tituloNivel[i].value;
+        level.image = urlNivel[i].value;
+        level.text = descricao[i].value;
+        level.minValue = percentualNumero[i];
+        quizz.levels.push(level);
+        level = {
+            title: "",
+            image: "",
+            text: "",
+            minValue: 0
+        }
+    }
 
     document.querySelector(".niveis").classList.add("escondido");
     document.querySelector(".niveis").classList.remove("centralizado");
     document.querySelector(".sucesso").classList.remove("escondido");
     document.querySelector(".sucesso").classList.add("centralizado");
+
+    const elemento = document.querySelector(".sucesso .imagem-quizz");
+
+    elemento.innerHTML = `
+        <img src="${quizz.image}" />
+        <div class="nome-quizz">
+            <h4>${quizz.title}</h4>
+        </div>
+    `;
 }
 
-function validarNivel() {
-    const titulo = document.querySelector(".titulo-nivel").value
-    const porcentagemAcerto = Math.floor(document.querySelector("%acerto").value)
-    const url = "https://"
-    const descricao = document.querySelector("descricao-nivel").value
-    if(titulo.length < 10 || porcentagemAcerto < 0 || porcentagemAcerto > 100 || descricao.length < 30) {
-        return alert('Preencha os dados corretamente')
-    } else {
-    finalizarQuizz()
+function validarNivel(tituloNivel, porcentagemAcerto, urlNivel, descricao) {
+    let contador = 0;
+    for (let i = 0; i < niveis; i++) {
+        if (porcentagemAcerto[i] === 0) {
+            contador++;
+        }
     }
+    if (contador === 0) {
+        return true;
+    }
+
+    for (let i = 0; i < niveis; i++) {
+        if (tituloNivel[i].value.length < 10) {
+            return true;
+        }
+        if (porcentagemAcerto[i] < 0 || porcentagemAcerto[i] > 100 || isNaN(porcentagemAcerto[i])) {
+            return true;
+        }
+        if (descricao[i].value.length < 30) {
+            return true;
+        }
+    }
+
+    //dessa forma que voce fez, a gente ta validando só o primeiro nivel, e temos que pegar todos. Ai fiz como está em cima (tipo a validação das perguntas)
+
+    // const titulo = document.querySelector(".titulo-nivel").value
+    // const porcentagemAcerto = Math.floor(document.querySelector("porcentagem-acerto").value)
+    // const url = "https://"
+    // const descricao = document.querySelector("descricao-nivel").value
+    // if(titulo.length < 10 || porcentagemAcerto < 0 || porcentagemAcerto > 100 || descricao.length < 30) {
+    //     return alert('Preencha os dados corretamente')
+    // } else {
+    // finalizarQuizz()
+    // }
 }
 
+//nao precisa dessa função pq já foram todos validados nas funções acima
 function validarSucesso() {
     if (verificacaoInfos() == true && verificacaoPerguntas() === true && validarNivel() === true) {
         document.querySelector(".sucesso").classList.remove("escondido");
         document.querySelector(".sucesso").classList.add("centralizado");
     }
 }
+
 
 function listarQuizz () {
     document.querySelector(".sucesso").classList.remove("centralizado");
