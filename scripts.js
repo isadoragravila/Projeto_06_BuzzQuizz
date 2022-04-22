@@ -1,3 +1,4 @@
+let idsUsuario = [];
 let tituloQuizz;
 let url;
 let perguntas;
@@ -157,7 +158,7 @@ function abrirPerguntaX (elemento) {
     pai.classList.add("escondido");
     pai.classList.remove("alinhamento");
     avo.querySelector(".caixa-pergunta").classList.add("alinhamento");
-    avo.querySelector(".caixa-pergunta").classList.add("escondido");
+    avo.querySelector(".caixa-pergunta").classList.remove("escondido");
 }
 
 function coletarPerguntas () {
@@ -324,6 +325,7 @@ function finalizarQuizz () {
             <h4>${quizz.title}</h4>
         </div>
     `;
+    enviarQuizz ();
 }
 
 function validarNivel(tituloNivel, porcentagemAcerto, urlNivel, descricao) {
@@ -348,33 +350,115 @@ function validarNivel(tituloNivel, porcentagemAcerto, urlNivel, descricao) {
             return true;
         }
     }
-
-    //dessa forma que voce fez, a gente ta validando só o primeiro nivel, e temos que pegar todos. Ai fiz como está em cima (tipo a validação das perguntas)
-
-    // const titulo = document.querySelector(".titulo-nivel").value
-    // const porcentagemAcerto = Math.floor(document.querySelector("porcentagem-acerto").value)
-    // const url = "https://"
-    // const descricao = document.querySelector("descricao-nivel").value
-    // if(titulo.length < 10 || porcentagemAcerto < 0 || porcentagemAcerto > 100 || descricao.length < 30) {
-    //     return alert('Preencha os dados corretamente')
-    // } else {
-    // finalizarQuizz()
-    // }
 }
 
-//nao precisa dessa função pq já foram todos validados nas funções acima
-function validarSucesso() {
-    if (verificacaoInfos() == true && verificacaoPerguntas() === true && validarNivel() === true) {
-        document.querySelector(".sucesso").classList.remove("escondido");
-        document.querySelector(".sucesso").classList.add("centralizado");
-    }
+function enviarQuizz () {
+    const promise = axios.post(API, quizz);
+    console.log("enviou!!");
+    promise.then(pegarID);
 }
 
+function pegarID (resposta) {
+    console.log(resposta.data.id);
+    idsUsuario.push(resposta.data.id);
+    console.log(idsUsuario);
+    localStorage.setItem("ids",JSON.stringify(idsUsuario));
+}
 
 function listarQuizz () {
     document.querySelector(".sucesso").classList.remove("centralizado");
     document.querySelector(".sucesso").classList.add("escondido");
     document.querySelector(".primeira-tela").classList.add("centralizado");
     document.querySelector(".primeira-tela").classList.remove("escondido");
-    let promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
+    pegarQuizzes ();
 }
+
+function pegarQuizzes () {
+    console.log("pegar quizzes");
+    const promise = axios.get(API);
+    promise.then(exibirQuizzes);
+}
+
+function exibirQuizzes (resposta) {
+    console.log("exibir quizzes");
+
+    const todosOsQuizzes = document.querySelector(".primeira-tela .todos-os-quizzes .quizzes");
+    const meusQuizzes = document.querySelector(".primeira-tela .meus-quizzes .quizzes");
+
+    if (idsUsuario.length === 0) {
+        console.log("ids.length é 0");
+        todosOsQuizzes.innerHTML = "";
+        for(let i = 0; i < resposta.data.length; i++) {
+            todosOsQuizzes.innerHTML += `
+                <div class="quizz">
+                    <img src="${resposta.data[i].image}" />
+                    <div class="nome-quizz">
+                        <h4>${resposta.data[i].title}</h4>
+                    </div>
+                </div>
+            `
+        }
+    }
+
+    if (idsUsuario.length > 0) {
+        console.log("ids.length maior que 0");
+        document.querySelector(".primeira-tela .borda-cinza").classList.add("escondido");
+        document.querySelector(".primeira-tela .borda-cinza").classList.remove("centralizado");
+        document.querySelector(".primeira-tela .meus-quizzes").classList.remove("escondido");
+
+        meusQuizzes.innerHTML = "";
+        todosOsQuizzes.innerHTML = "";
+
+            const ehMeuQuizz = resposta.data.filter(quizz => {
+                for (let i = 0; i < idsUsuario.length; i++) {
+                    if (quizz.id === idsUsuario[i]) {
+                        return true;
+                    }
+                }
+            });
+
+            const naoEhMeuQuizz = resposta.data.filter(quizz => {
+                for (let i = 0; i < idsUsuario.length; i++) {
+                    if (quizz.id === idsUsuario[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+
+            for (let i = 0; i < ehMeuQuizz.length; i++) {
+                meusQuizzes.innerHTML += `
+                <div class="quizz">
+                    <img src="${ehMeuQuizz[i].image}" />
+                    <div class="nome-quizz">
+                        <h4>${ehMeuQuizz[i].title}</h4>
+                    </div>
+                </div>
+            `
+            }
+            for (let i = 0; i < naoEhMeuQuizz.length; i++) {
+                todosOsQuizzes.innerHTML += `
+                <div class="quizz">
+                    <img src="${naoEhMeuQuizz[i].image}" />
+                    <div class="nome-quizz">
+                        <h4>${naoEhMeuQuizz[i].title}</h4>
+                    </div>
+                </div>
+            `
+            }
+
+    } 
+}
+
+function iniciarPagina () {
+    console.log("iniciar pagina")
+    idsUsuario = JSON.parse(localStorage.getItem("ids"));
+    console.log(idsUsuario);
+    if (idsUsuario === null) {
+        idsUsuario = [];
+    }
+
+    pegarQuizzes ();
+}
+
+iniciarPagina();
