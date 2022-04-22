@@ -80,7 +80,6 @@ function enviarInfos () {
         </div>
         `;
     }
-
     elemento.innerHTML += `
         <div class="botao" onclick="coletarPerguntas ()"><p>Prosseguir pra criar níveis</p></div>
     `;
