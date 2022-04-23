@@ -517,8 +517,8 @@ span {
     font-weight: 400;
     font-size: 21px;
     line-height: 25px;
+    cursor: pointer;
 }
-
 
 .azul {
     background: #434CA0;
