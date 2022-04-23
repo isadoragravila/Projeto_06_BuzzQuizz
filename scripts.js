@@ -1,4 +1,6 @@
 let idsUsuario = [];
+let listaNomes = [];
+let idUnico;
 let tituloQuizz;
 let url;
 let perguntas;
@@ -45,14 +47,21 @@ function iniciarPagina () {
 iniciarPagina();
 
 function pegarQuizzes () {
-    console.log("pegar quizzes");
     const promise = axios.get(API);
     promise.then(exibirQuizzes);
 }
 
 function exibirQuizzes (resposta) {
-    console.log("exibir quizzes");
-
+    for(let i = 0; i < resposta.data.length; i++) {
+        let listagem = {
+            title: "",
+            id: ""
+        }
+        listagem.title = resposta.data[i].title;
+        listagem.id = resposta.data[i].id;
+        listaNomes.push(listagem);
+    }
+    
     const todosOsQuizzes = document.querySelector(".primeira-tela .todos-os-quizzes .quizzes");
     const meusQuizzes = document.querySelector(".primeira-tela .meus-quizzes .quizzes");
 
@@ -63,7 +72,7 @@ function exibirQuizzes (resposta) {
             todosOsQuizzes.innerHTML += `
                 <div class="quizz">
                     <img src="${resposta.data[i].image}" />
-                    <div class="nome-quizz">
+                    <div class="nome-quizz" onclick="abrirQuizz (this)">
                         <h4>${resposta.data[i].title}</h4>
                     </div>
                 </div>
@@ -101,7 +110,7 @@ function exibirQuizzes (resposta) {
                 meusQuizzes.innerHTML += `
                 <div class="quizz">
                     <img src="${ehMeuQuizz[i].image}" />
-                    <div class="nome-quizz">
+                    <div class="nome-quizz" onclick="abrirQuizz (this)">
                         <h4>${ehMeuQuizz[i].title}</h4>
                     </div>
                 </div>
@@ -111,7 +120,7 @@ function exibirQuizzes (resposta) {
                 todosOsQuizzes.innerHTML += `
                 <div class="quizz">
                     <img src="${naoEhMeuQuizz[i].image}" />
-                    <div class="nome-quizz">
+                    <div class="nome-quizz" onclick="abrirQuizz (this)">
                         <h4>${naoEhMeuQuizz[i].title}</h4>
                     </div>
                 </div>
@@ -500,7 +509,7 @@ function finalizarQuizz () {
             <h4>${quizz.title}</h4>
         </div>
     `;
-    //enviarQuizz ();
+    enviarQuizz ();
 }
 
 function validarNivel(tituloNivel, porcentagemAcerto, descricao) {
@@ -556,4 +565,20 @@ function voltarTelaInicial () {
     pegarQuizzes ();
 }
 
+function abrirQuizz (elemento) {
+    const nomeQuizz = elemento.querySelector("h4").innerHTML;
+    for (let i = 0; i < listaNomes.length; i++) {
+        if (nomeQuizz === listaNomes[i].title) {
+            idUnico = listaNomes[i].id;
+        }
+    }
+    promise = axios.get(`${API}/${idUnico}`);
+    promise.then(exibirQuizzUnico);
+}
+
+function exibirQuizzUnico (resposta) {
+    console.log (resposta.data.id);
+    const resp = resposta.data;
+    
+}
 
