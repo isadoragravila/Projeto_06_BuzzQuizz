@@ -399,6 +399,7 @@ span {
     background-color: #ffffff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
     padding: 0 36px;
+    margin-bottom: 42px;
 }
 
 .caixa-quizz .pergunta-quizz {
@@ -425,7 +426,6 @@ span {
     padding: 0 18px;
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-    margin-top: 44px;
 }
 
 .resposta-quizz .titulo-resposta {
@@ -641,6 +641,7 @@ opacity: 1;
         max-width: 375px;
         width: 100%;
         padding: 0 18px;
+        margin-bottom: 28px;
         
     }
     
@@ -677,7 +678,6 @@ opacity: 1;
     .resposta-quizz {
         max-width: 375px;
         width: 100%;
-        margin-top: 24px;
     }
 
     .resposta-quizz .titulo-resposta {

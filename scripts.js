@@ -31,6 +31,7 @@ let level = {
 }
 
 let API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
+let response;
 let contadorPerguntas = 0;
 let acertos = 0;
 
@@ -104,6 +105,7 @@ function exibirQuizzes (resposta) {
                     <img src="${ehMeuQuizz[i].image}" />
                     <div class="nome-quizz" onclick="abrirQuizz (this)">
                         <h4>${ehMeuQuizz[i].title}</h4>
+                        <div class="ids escondido">${ehMeuQuizz[i].id}</div>
                     </div>
                 </div>
             `
@@ -114,6 +116,7 @@ function exibirQuizzes (resposta) {
                     <img src="${naoEhMeuQuizz[i].image}" />
                     <div class="nome-quizz" onclick="abrirQuizz (this)">
                         <h4>${naoEhMeuQuizz[i].title}</h4>
+                        <div class="ids escondido">${naoEhMeuQuizz[i].id}</div>
                     </div>
                 </div>
             `
@@ -541,38 +544,44 @@ function pegarID (resposta) {
     localStorage.setItem("ids",JSON.stringify(idsUsuario));
 }
 
-function listarQuizz () {
-    document.querySelector(".sucesso").classList.remove("centralizado");
-    document.querySelector(".sucesso").classList.add("escondido");
-    document.querySelector(".primeira-tela").classList.add("centralizado");
-    document.querySelector(".primeira-tela").classList.remove("escondido");
-    pegarQuizzes ();
-}
+// function listarQuizz () {
+//     document.querySelector(".sucesso").classList.remove("centralizado");
+//     document.querySelector(".sucesso").classList.add("escondido");
+//     document.querySelector(".primeira-tela").classList.add("centralizado");
+//     document.querySelector(".primeira-tela").classList.remove("escondido");
+//     pegarQuizzes ();
+// }
 
 function voltarTelaInicial () {
-    document.querySelector(".pagina-de-um-quizz").classList.remove("centralizado");
-    document.querySelector(".pagina-de-um-quizz").classList.add("escondido");
-    document.querySelector(".primeira-tela").classList.add("centralizado");
-    document.querySelector(".primeira-tela").classList.remove("escondido");
-    pegarQuizzes ();
+    // document.querySelector(".pagina-de-um-quizz").classList.remove("centralizado");
+    // document.querySelector(".pagina-de-um-quizz").classList.add("escondido");
+    // document.querySelector(".primeira-tela").classList.add("centralizado");
+    // document.querySelector(".primeira-tela").classList.remove("escondido");
+    // pegarQuizzes ();
+    
+    window.location.reload();
 }
 
 function abrirQuizz (elemento) {
     idUnico = elemento.querySelector(".ids").innerHTML;
     console.log(idUnico);
     promise = axios.get(`${API}/${idUnico}`);
-    promise.then(exibirQuizzUnico);
+    promise.then(trocarPaginas);
 }
 
-let response;
-function exibirQuizzUnico (resposta) {
-    console.log (resposta.data.id);
-    response = resposta.data;
+function trocarPaginas (resposta) {
     document.querySelector(".primeira-tela").classList.remove("centralizado");
     document.querySelector(".primeira-tela").classList.add("escondido");
     document.querySelector(".pagina-de-um-quizz").classList.add("centralizado");
     document.querySelector(".pagina-de-um-quizz").classList.remove("escondido");
-    
+    console.log (resposta.data.id);
+    response = resposta.data;
+    exibirQuizzUnico ();
+}
+
+function exibirQuizzUnico () {
+    contadorPerguntas = 0;
+    acertos = 0;
     const elemento = document.querySelector(".pagina-de-um-quizz");
     elemento.innerHTML = `
         <div class="faixa-quizz">
@@ -653,7 +662,39 @@ function cliqueResposta (elemento) {
 
 function exibirNivel () {
     const percentualAcertos = Math.ceil((acertos/contadorPerguntas)*100);
-
     console.log(percentualAcertos);
+    let contadorNiveis = 0;
+
+    response.levels.sort(function (a , b) {
+        return a.minValue - b.minValue;
+    });
+    console.log(response.levels);
+
+    for (let i = 0; i < response.levels.length; i++) {
+        if (percentualAcertos >= response.levels[i].minValue) {
+            contadorNiveis++;
+            console.log(contadorNiveis);
+        }
+    }
+
+    const elemento = document.querySelector(".pagina-de-um-quizz");
+    elemento.innerHTML += `
+        <div class="resposta-quizz centralizado">
+            <div class="titulo-resposta">
+                <p>${percentualAcertos}% de acerto: ${response.levels[contadorNiveis - 1].title}</p>
+            </div>
+            <div class="caixa-resultado">
+                <img src="${response.levels[contadorNiveis - 1].image}">
+                <p>${response.levels[contadorNiveis - 1].text}</p>
+            </div>
+        </div>
+        <div class="botao" onclick="exibirQuizzUnico ()">
+            <p>Reiniciar quizz</p>
+        </div>
+        <p onclick="voltarTelaInicial()">Voltar pra home</p>
+    `;
+
+    const scrollar = document.querySelector(".pagina-de-um-quizz .resposta-quizz");
+    scrollar.scrollIntoView();
 }
 
