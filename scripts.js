@@ -1,5 +1,4 @@
 let idsUsuario = [];
-let listaNomes = [];
 let idUnico;
 let tituloQuizz;
 let url;
@@ -32,6 +31,8 @@ let level = {
 }
 
 let API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
+let contadorPerguntas = 0;
+let acertos = 0;
 
 function iniciarPagina () {
     console.log("iniciar pagina")
@@ -52,21 +53,11 @@ function pegarQuizzes () {
 }
 
 function exibirQuizzes (resposta) {
-    for(let i = 0; i < resposta.data.length; i++) {
-        let listagem = {
-            title: "",
-            id: ""
-        }
-        listagem.title = resposta.data[i].title;
-        listagem.id = resposta.data[i].id;
-        listaNomes.push(listagem);
-    }
-    
     const todosOsQuizzes = document.querySelector(".primeira-tela .todos-os-quizzes .quizzes");
     const meusQuizzes = document.querySelector(".primeira-tela .meus-quizzes .quizzes");
 
     if (idsUsuario.length === 0) {
-        console.log("ids.length é 0");
+        console.log("ids é 0");
         todosOsQuizzes.innerHTML = "";
         for(let i = 0; i < resposta.data.length; i++) {
             todosOsQuizzes.innerHTML += `
@@ -74,6 +65,7 @@ function exibirQuizzes (resposta) {
                     <img src="${resposta.data[i].image}" />
                     <div class="nome-quizz" onclick="abrirQuizz (this)">
                         <h4>${resposta.data[i].title}</h4>
+                        <div class="ids escondido">${resposta.data[i].id}</div>
                     </div>
                 </div>
             `
@@ -566,19 +558,102 @@ function voltarTelaInicial () {
 }
 
 function abrirQuizz (elemento) {
-    const nomeQuizz = elemento.querySelector("h4").innerHTML;
-    for (let i = 0; i < listaNomes.length; i++) {
-        if (nomeQuizz === listaNomes[i].title) {
-            idUnico = listaNomes[i].id;
-        }
-    }
+    idUnico = elemento.querySelector(".ids").innerHTML;
+    console.log(idUnico);
     promise = axios.get(`${API}/${idUnico}`);
     promise.then(exibirQuizzUnico);
 }
 
+let response;
 function exibirQuizzUnico (resposta) {
     console.log (resposta.data.id);
-    const resp = resposta.data;
+    response = resposta.data;
+    document.querySelector(".primeira-tela").classList.remove("centralizado");
+    document.querySelector(".primeira-tela").classList.add("escondido");
+    document.querySelector(".pagina-de-um-quizz").classList.add("centralizado");
+    document.querySelector(".pagina-de-um-quizz").classList.remove("escondido");
     
+    const elemento = document.querySelector(".pagina-de-um-quizz");
+    elemento.innerHTML = `
+        <div class="faixa-quizz">
+            <img src="${response.image}" >
+            <div class="titulo-do-quizz">
+                <p>${response.title}</p>
+            </div>
+        </div>
+    `;
+
+    elemento.scrollIntoView();
+    exibirPerguntas (response.questions[contadorPerguntas]);
+}
+
+function exibirPerguntas (question) {
+    const elemento = document.querySelector(".pagina-de-um-quizz");
+    elemento.innerHTML += `
+        <div class="caixa-quizz centralizado">
+            <div class="pergunta-quizz" style="background-color: ${question.color}">
+                <p>${question.title}</p>
+            </div>
+            <div class="imagens-quizz vazia">
+                <div class="travar-respostas escondido"></div>
+            </div>
+        </div>
+    `;
+    const caixaRespostas = elemento.querySelector(".caixa-quizz .imagens-quizz.vazia");
+    for (let i = 0; i < question.answers.length; i++) {
+        caixaRespostas.innerHTML += `
+            <div class="card-resposta" onclick="cliqueResposta (this)">
+                <img src="${question.answers[i].image}" >
+                <p class="preto">${question.answers[i].text}</p>
+                <div class="valor-resposta escondido">${question.answers[i].isCorrectAnswer}</div>
+            </div>
+        `;
+    }
+
+    caixaRespostas.classList.remove("vazia");
+    caixaRespostas.classList.add(`pergunta-${contadorPerguntas}`);
+
+    setTimeout(proxPergunta, 2000);
+}
+
+function proxPergunta () {
+    const scrollar = document.querySelector(`.pagina-de-um-quizz .caixa-quizz .imagens-quizz.pergunta-${contadorPerguntas}`);
+    scrollar.scrollIntoView();
+}
+
+function cliqueResposta (elemento) {
+    const pai = elemento.parentNode;
+    const todasRespostas = pai.querySelectorAll(".card-resposta");
+    for (let i = 0; i < todasRespostas.length; i++) {
+        todasRespostas[i].classList.add("opacidade");
+        const ehACerta = todasRespostas[i].querySelector(".valor-resposta");
+        if (ehACerta.innerHTML === "true") {
+            todasRespostas[i].querySelector(".preto").classList.add("verde");
+            todasRespostas[i].querySelector(".preto").classList.remove("preto");
+        } else {
+            todasRespostas[i].querySelector(".preto").classList.add("vermelho");
+            todasRespostas[i].querySelector(".preto").classList.remove("preto");
+        }
+    }
+    elemento.classList.remove("opacidade");
+    document.querySelector(".travar-respostas.escondido").classList.remove("escondido");
+
+    const verifAcertos = elemento.querySelector(".valor-resposta");
+    if (verifAcertos.innerHTML === "true") {
+        acertos++;
+    }
+
+    contadorPerguntas++;
+    if (contadorPerguntas < response.questions.length) {
+        exibirPerguntas (response.questions[contadorPerguntas]);
+    } else {
+        setTimeout(exibirNivel, 2000);
+    }
+}
+
+function exibirNivel () {
+    const percentualAcertos = Math.ceil((acertos/contadorPerguntas)*100);
+
+    console.log(percentualAcertos);
 }
 
