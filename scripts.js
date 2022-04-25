@@ -82,46 +82,45 @@ function exibirQuizzes (resposta) {
         meusQuizzes.innerHTML = "";
         todosOsQuizzes.innerHTML = "";
 
-            const ehMeuQuizz = resposta.data.filter(quizz => {
-                for (let i = 0; i < idsUsuario.length; i++) {
-                    if (quizz.id === idsUsuario[i]) {
-                        return true;
-                    }
+        const ehMeuQuizz = resposta.data.filter(quizz => {
+            for (let i = 0; i < idsUsuario.length; i++) {
+                if (quizz.id === idsUsuario[i]) {
+                    return true;
                 }
-            });
+            }
+        });
 
-            const naoEhMeuQuizz = resposta.data.filter(quizz => {
-                for (let i = 0; i < idsUsuario.length; i++) {
-                    if (quizz.id === idsUsuario[i]) {
-                        return false;
-                    }
+        const naoEhMeuQuizz = resposta.data.filter(quizz => {
+            for (let i = 0; i < idsUsuario.length; i++) {
+                if (quizz.id === idsUsuario[i]) {
+                    return false;
                 }
-                return true;
-            });
-
-            for (let i = 0; i < ehMeuQuizz.length; i++) {
-                meusQuizzes.innerHTML += `
-                <div class="quizz">
-                    <img src="${ehMeuQuizz[i].image}" />
-                    <div class="nome-quizz" onclick="abrirQuizz (this)">
-                        <h4>${ehMeuQuizz[i].title}</h4>
-                        <div class="ids escondido">${ehMeuQuizz[i].id}</div>
-                    </div>
-                </div>
-            `
             }
-            for (let i = 0; i < naoEhMeuQuizz.length; i++) {
-                todosOsQuizzes.innerHTML += `
-                <div class="quizz">
-                    <img src="${naoEhMeuQuizz[i].image}" />
-                    <div class="nome-quizz" onclick="abrirQuizz (this)">
-                        <h4>${naoEhMeuQuizz[i].title}</h4>
-                        <div class="ids escondido">${naoEhMeuQuizz[i].id}</div>
-                    </div>
-                </div>
-            `
-            }
+            return true;
+        });
 
+        for (let i = 0; i < ehMeuQuizz.length; i++) {
+            meusQuizzes.innerHTML += `
+            <div class="quizz">
+                <img src="${ehMeuQuizz[i].image}" />
+                <div class="nome-quizz" onclick="abrirQuizz (this)">
+                    <h4>${ehMeuQuizz[i].title}</h4>
+                    <div class="ids escondido">${ehMeuQuizz[i].id}</div>
+                </div>
+            </div>
+        `
+        }
+        for (let i = 0; i < naoEhMeuQuizz.length; i++) {
+            todosOsQuizzes.innerHTML += `
+            <div class="quizz">
+                <img src="${naoEhMeuQuizz[i].image}" />
+                <div class="nome-quizz" onclick="abrirQuizz (this)">
+                    <h4>${naoEhMeuQuizz[i].title}</h4>
+                    <div class="ids escondido">${naoEhMeuQuizz[i].id}</div>
+                </div>
+            </div>
+        `
+        }
     } 
 }
 
@@ -540,25 +539,21 @@ function enviarQuizz () {
 function pegarID (resposta) {
     console.log(resposta.data.id);
     idsUsuario.push(resposta.data.id);
+    idUnico = resposta.data.id;
+    response = resposta.data;
     console.log(idsUsuario);
     localStorage.setItem("ids",JSON.stringify(idsUsuario));
 }
 
-// function listarQuizz () {
-//     document.querySelector(".sucesso").classList.remove("centralizado");
-//     document.querySelector(".sucesso").classList.add("escondido");
-//     document.querySelector(".primeira-tela").classList.add("centralizado");
-//     document.querySelector(".primeira-tela").classList.remove("escondido");
-//     pegarQuizzes ();
-// }
+function exibirQuizzFeito () {
+    document.querySelector(".sucesso").classList.remove("centralizado");
+    document.querySelector(".sucesso").classList.add("escondido");
+    document.querySelector(".pagina-de-um-quizz").classList.add("centralizado");
+    document.querySelector(".pagina-de-um-quizz").classList.remove("escondido");
+    exibirQuizzUnico ();
+}
 
 function voltarTelaInicial () {
-    // document.querySelector(".pagina-de-um-quizz").classList.remove("centralizado");
-    // document.querySelector(".pagina-de-um-quizz").classList.add("escondido");
-    // document.querySelector(".primeira-tela").classList.add("centralizado");
-    // document.querySelector(".primeira-tela").classList.remove("escondido");
-    // pegarQuizzes ();
-    
     window.location.reload();
 }
 
@@ -609,6 +604,11 @@ function exibirPerguntas (question) {
         </div>
     `;
     const caixaRespostas = elemento.querySelector(".caixa-quizz .imagens-quizz.vazia");
+
+    question.answers.sort(function () { 
+        return Math.random() - 0.5; 
+    });
+    
     for (let i = 0; i < question.answers.length; i++) {
         caixaRespostas.innerHTML += `
             <div class="card-resposta" onclick="cliqueResposta (this)">

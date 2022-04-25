@@ -469,6 +469,7 @@ span {
     line-height: 25px;
     margin-bottom: 22px;
     word-break: break-word;
+    width: 328px;
 }
 
 .caixa-quizz .imagens-quizz {
@@ -705,6 +706,7 @@ opacity: 1;
         line-height: 20px;
         margin-bottom: 14px;
         margin-left: 0;
+        width: 100%;
     }
 
     .pagina-de-um-quizz .botao {
