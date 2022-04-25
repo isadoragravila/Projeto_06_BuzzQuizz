@@ -90,6 +90,8 @@ function exibirQuizzes (resposta) {
             }
         });
 
+        console.log(ehMeuQuizz);
+
         const naoEhMeuQuizz = resposta.data.filter(quizz => {
             for (let i = 0; i < idsUsuario.length; i++) {
                 if (quizz.id === idsUsuario[i]) {
@@ -98,18 +100,41 @@ function exibirQuizzes (resposta) {
             }
             return true;
         });
+        console.log(naoEhMeuQuizz);
 
-        for (let i = 0; i < ehMeuQuizz.length; i++) {
-            meusQuizzes.innerHTML += `
-            <div class="quizz">
-                <img src="${ehMeuQuizz[i].image}" />
-                <div class="nome-quizz" onclick="abrirQuizz (this)">
-                    <h4>${ehMeuQuizz[i].title}</h4>
-                    <div class="ids escondido">${ehMeuQuizz[i].id}</div>
+        // arrumar aqui!!
+        
+        if (idsUsuario.length === ehMeuQuizz.length) {
+            console.log("meus quizzes estão todos no get ");
+            for (let i = 0; i < ehMeuQuizz.length; i++) {
+                meusQuizzes.innerHTML += `
+                <div class="quizz">
+                    <img src="${ehMeuQuizz[i].image}" />
+                    <div class="nome-quizz" onclick="abrirQuizz (this)">
+                        <h4>${ehMeuQuizz[i].title}</h4>
+                        <div class="ids escondido">${ehMeuQuizz[i].id}</div>
+                    </div>
                 </div>
-            </div>
-        `
+            `
+            }
+        } else {
+            console.log("faltam meus quizzes no get ");
+            for (let i = 0; i< idsUsuario.length; i++) {
+                promise = axios.get(`${API}/${idsUsuario[i]}`);
+                promise.then(function (resposta) {
+                    meusQuizzes.innerHTML += `
+                    <div class="quizz">
+                        <img src="${resposta.data.image}" />
+                        <div class="nome-quizz" onclick="abrirQuizz (this)">
+                            <h4>${resposta.data.title}</h4>
+                            <div class="ids escondido">${resposta.data.id}</div>
+                        </div>
+                    </div>
+                `
+                });
+            }
         }
+
         for (let i = 0; i < naoEhMeuQuizz.length; i++) {
             todosOsQuizzes.innerHTML += `
             <div class="quizz">
@@ -627,7 +652,7 @@ function exibirPerguntas (question) {
 
 function proxPergunta () {
     const scrollar = document.querySelector(`.pagina-de-um-quizz .caixa-quizz .imagens-quizz.pergunta-${contadorPerguntas}`);
-    scrollar.scrollIntoView();
+    scrollar.scrollIntoView(false);
 }
 
 function cliqueResposta (elemento) {
