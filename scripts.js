@@ -573,6 +573,8 @@ function pegarID (resposta) {
 function exibirQuizzFeito () {
     document.querySelector(".sucesso").classList.remove("centralizado");
     document.querySelector(".sucesso").classList.add("escondido");
+    document.querySelector(".criacao-quizz").classList.remove("centralizado");
+    document.querySelector(".criacao-quizz").classList.add("escondido");
     document.querySelector(".pagina-de-um-quizz").classList.add("centralizado");
     document.querySelector(".pagina-de-um-quizz").classList.remove("escondido");
     exibirQuizzUnico ();
