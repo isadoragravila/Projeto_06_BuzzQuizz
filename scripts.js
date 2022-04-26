@@ -36,13 +36,11 @@ let contadorPerguntas = 0;
 let acertos = 0;
 
 function iniciarPagina () {
-    console.log("iniciar pagina")
     idsUsuario = JSON.parse(localStorage.getItem("ids"));
     console.log(idsUsuario);
     if (idsUsuario === null) {
         idsUsuario = [];
     }
-
     pegarQuizzes ();
 }
 
@@ -56,10 +54,9 @@ function pegarQuizzes () {
 function exibirQuizzes (resposta) {
     const todosOsQuizzes = document.querySelector(".primeira-tela .todos-os-quizzes .quizzes");
     const meusQuizzes = document.querySelector(".primeira-tela .meus-quizzes .quizzes");
+    todosOsQuizzes.innerHTML = "";
 
     if (idsUsuario.length === 0) {
-        console.log("ids é 0");
-        todosOsQuizzes.innerHTML = "";
         for(let i = 0; i < resposta.data.length; i++) {
             todosOsQuizzes.innerHTML += `
                 <div class="quizz">
@@ -69,28 +66,15 @@ function exibirQuizzes (resposta) {
                         <div class="ids escondido">${resposta.data[i].id}</div>
                     </div>
                 </div>
-            `
+            `;
         }
     }
 
     if (idsUsuario.length > 0) {
-        console.log("ids.length maior que 0");
         document.querySelector(".primeira-tela .borda-cinza").classList.add("escondido");
         document.querySelector(".primeira-tela .borda-cinza").classList.remove("centralizado");
         document.querySelector(".primeira-tela .meus-quizzes").classList.remove("escondido");
-
         meusQuizzes.innerHTML = "";
-        todosOsQuizzes.innerHTML = "";
-
-        const ehMeuQuizz = resposta.data.filter(quizz => {
-            for (let i = 0; i < idsUsuario.length; i++) {
-                if (quizz.id === idsUsuario[i]) {
-                    return true;
-                }
-            }
-        });
-
-        console.log(ehMeuQuizz);
 
         const naoEhMeuQuizz = resposta.data.filter(quizz => {
             for (let i = 0; i < idsUsuario.length; i++) {
@@ -100,39 +84,20 @@ function exibirQuizzes (resposta) {
             }
             return true;
         });
-        console.log(naoEhMeuQuizz);
 
-        // arrumar aqui!!
-        
-        if (idsUsuario.length === ehMeuQuizz.length) {
-            console.log("meus quizzes estão todos no get ");
-            for (let i = 0; i < ehMeuQuizz.length; i++) {
+        for (let i = 0; i< idsUsuario.length; i++) {
+            promise = axios.get(`${API}/${idsUsuario[i]}`);
+            promise.then (function (resposta) {
                 meusQuizzes.innerHTML += `
                 <div class="quizz">
-                    <img src="${ehMeuQuizz[i].image}" />
+                    <img src="${resposta.data.image}" />
                     <div class="nome-quizz" onclick="abrirQuizz (this)">
-                        <h4>${ehMeuQuizz[i].title}</h4>
-                        <div class="ids escondido">${ehMeuQuizz[i].id}</div>
+                        <h4>${resposta.data.title}</h4>
+                        <div class="ids escondido">${resposta.data.id}</div>
                     </div>
                 </div>
-            `
-            }
-        } else {
-            console.log("faltam meus quizzes no get ");
-            for (let i = 0; i< idsUsuario.length; i++) {
-                promise = axios.get(`${API}/${idsUsuario[i]}`);
-                promise.then(function (resposta) {
-                    meusQuizzes.innerHTML += `
-                    <div class="quizz">
-                        <img src="${resposta.data.image}" />
-                        <div class="nome-quizz" onclick="abrirQuizz (this)">
-                            <h4>${resposta.data.title}</h4>
-                            <div class="ids escondido">${resposta.data.id}</div>
-                        </div>
-                    </div>
-                `
-                });
-            }
+            `;
+            });
         }
 
         for (let i = 0; i < naoEhMeuQuizz.length; i++) {
@@ -144,7 +109,7 @@ function exibirQuizzes (resposta) {
                     <div class="ids escondido">${naoEhMeuQuizz[i].id}</div>
                 </div>
             </div>
-        `
+        `;
         }
     } 
 }
@@ -157,6 +122,10 @@ function criarQuizz () {
     document.querySelector(".infos-basicas").classList.add("centralizado");
     document.querySelector(".infos-basicas").classList.remove("escondido");
 
+    zerarVariaveis ();
+}
+
+function zerarVariaveis () {
     tituloQuizz = "";
     url = "";
     perguntas = 0;
@@ -202,7 +171,6 @@ function enviarInfos () {
         alert ("Preencha os dados corretamente");
         return;
     }
-
     if (validarURL (url) === false) {
         console.log("pela url");
         alert ("Preencha os dados corretamente");
@@ -315,7 +283,6 @@ function coletarPerguntas () {
     //validação cores
     for (let i = 0; i < perguntas; i++) {
         if (validarCor (corPergunta[i].value) === false) {
-            console.log("pela cor");
             alert ("Preencha os dados corretamente");
             return;
         }
@@ -323,81 +290,66 @@ function coletarPerguntas () {
     //validação url imagem
     for (let i = 0; i < perguntas; i++) {
         if (validarURL (imagemCorreta[i].value) === false) {
-            console.log("pelo url imagem correta" + i);
             alert ("Preencha os dados corretamente");
             return;
         }
         if (respostaIncorreta1[i].value !== "") {
             if (validarURL (imagemIncorreta1[i].value) === false) {
-                console.log("pelo url imagem incorreta 1" + i);
                 alert ("Preencha os dados corretamente");
                 return;
             }
         }
         if (respostaIncorreta2[i].value !== "") {
             if (validarURL (imagemIncorreta2[i].value) === false) {
-                console.log("pelo url imagem incorreta 2" + i);
                 alert ("Preencha os dados corretamente");
                 return;
             }
         }
         if (respostaIncorreta3[i].value !== "") {
             if (validarURL (imagemIncorreta3[i].value) === false) {
-                console.log("pelo url imagem incorreta 2" + i);
                 alert ("Preencha os dados corretamente");
                 return;
             }
         }
     }
 
-
-    
     //manda as informações para o objeto
     for (let i = 0; i < perguntas; i++) {
         question.title = textoPergunta[i].value;
         question.color = corPergunta[i].value;
+
         answer.text = respostaCorreta[i].value;
         answer.image = imagemCorreta[i].value;
         answer.isCorrectAnswer = true;
+
         question.answers.push(answer);
-        answer = {
-            text: "",
-            image: "",
-            isCorrectAnswer: true
-        }
+        zerarAnswer ();
+        
         if (respostaIncorreta1[i].value !== "") {
             answer.text = respostaIncorreta1[i].value;
             answer.image = imagemIncorreta1[i].value;
             answer.isCorrectAnswer = false;
+
             question.answers.push(answer);
-            answer = {
-                text: "",
-                image: "",
-                isCorrectAnswer: true
-            }
+            zerarAnswer ();
         }
         if (respostaIncorreta2[i].value !== "") {
             answer.text = respostaIncorreta2[i].value;
             answer.image = imagemIncorreta2[i].value;
             answer.isCorrectAnswer = false;
+
             question.answers.push(answer);
-            answer = {
-                text: "",
-                image: "",
-                isCorrectAnswer: true
-            }
+            zerarAnswer ();
         }
         if (respostaIncorreta3[i].value !== "") {
             answer.text = respostaIncorreta3[i].value;
             answer.image = imagemIncorreta3[i].value;
             answer.isCorrectAnswer = false;
+
             question.answers.push(answer);
-            answer = {
-                text: "",
-                image: "",
-                isCorrectAnswer: true
-            }
+            zerarAnswer ();
         }
+
         quizz.questions.push(question);
         question = {
             title: "",
@@ -432,13 +384,21 @@ function coletarPerguntas () {
                     <ion-icon name="create-outline" onclick="abrirPerguntaX (this)"></ion-icon>
                 </div>
             </div>
-        `
+        `;
     }
     elemento.innerHTML += `
             <div class="botao" onclick="finalizarQuizz ()">
                 <p>Finalizar Quizz</p>
             </div>
-    `
+    `;
+}
+
+function zerarAnswer () {
+    answer = {
+        text: "",
+        image: "",
+        isCorrectAnswer: true
+    }
 }
 
 function verificacaoPerguntas (textoPergunta, respostaCorreta, respostaIncorreta1, imagemIncorreta1, respostaIncorreta2, imagemIncorreta2, respostaIncorreta3, imagemIncorreta3) {
@@ -450,11 +410,9 @@ function verificacaoPerguntas (textoPergunta, respostaCorreta, respostaIncorreta
             return true;
         }
         if (respostaIncorreta1[i].value === "" && respostaIncorreta2[i].value === "" && respostaIncorreta3[i].value === "") {
-            console.log("pelas respostas incorretas vazias" + i);
             return true;
         }
         if (imagemIncorreta1[i].value === "" && imagemIncorreta2[i].value === "" && imagemIncorreta3[i].value === "") {
-            console.log("pelas imagens incorretas vazias" + i);
             return true;
         }
     }
@@ -491,9 +449,7 @@ function finalizarQuizz () {
     }
 
     for (let i = 0; i < niveis; i++) {
-        //valida URL
         if (validarURL (urlNivel[i].value) === false) {
-            console.log("pelo nivel");
             alert ("Preencha os dados corretamente");
             return;
         }
@@ -505,6 +461,7 @@ function finalizarQuizz () {
         level.image = urlNivel[i].value;
         level.text = descricao[i].value;
         level.minValue = percentualNumero[i];
+
         quizz.levels.push(level);
         level = {
             title: "",
@@ -557,16 +514,13 @@ function validarNivel(tituloNivel, porcentagemAcerto, descricao) {
 
 function enviarQuizz () {
     const promise = axios.post(API, quizz);
-    console.log("enviou!!");
     promise.then(pegarID);
 }
 
 function pegarID (resposta) {
-    console.log(resposta.data.id);
     idsUsuario.push(resposta.data.id);
     idUnico = resposta.data.id;
     response = resposta.data;
-    console.log(idsUsuario);
     localStorage.setItem("ids",JSON.stringify(idsUsuario));
 }
 
@@ -586,7 +540,6 @@ function voltarTelaInicial () {
 
 function abrirQuizz (elemento) {
     idUnico = elemento.querySelector(".ids").innerHTML;
-    console.log(idUnico);
     promise = axios.get(`${API}/${idUnico}`);
     promise.then(trocarPaginas);
 }
@@ -596,7 +549,6 @@ function trocarPaginas (resposta) {
     document.querySelector(".primeira-tela").classList.add("escondido");
     document.querySelector(".pagina-de-um-quizz").classList.add("centralizado");
     document.querySelector(".pagina-de-um-quizz").classList.remove("escondido");
-    console.log (resposta.data.id);
     response = resposta.data;
     exibirQuizzUnico ();
 }
@@ -660,6 +612,7 @@ function proxPergunta () {
 function cliqueResposta (elemento) {
     const pai = elemento.parentNode;
     const todasRespostas = pai.querySelectorAll(".card-resposta");
+
     for (let i = 0; i < todasRespostas.length; i++) {
         todasRespostas[i].classList.add("opacidade");
         const ehACerta = todasRespostas[i].querySelector(".valor-resposta");
@@ -689,18 +642,15 @@ function cliqueResposta (elemento) {
 
 function exibirNivel () {
     const percentualAcertos = Math.ceil((acertos/contadorPerguntas)*100);
-    console.log(percentualAcertos);
     let contadorNiveis = 0;
 
     response.levels.sort(function (a , b) {
         return a.minValue - b.minValue;
     });
-    console.log(response.levels);
 
     for (let i = 0; i < response.levels.length; i++) {
         if (percentualAcertos >= response.levels[i].minValue) {
             contadorNiveis++;
-            console.log(contadorNiveis);
         }
     }
 
@@ -724,4 +674,3 @@ function exibirNivel () {
     const scrollar = document.querySelector(".pagina-de-um-quizz .resposta-quizz");
     scrollar.scrollIntoView();
 }
-
