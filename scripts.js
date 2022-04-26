@@ -30,7 +30,8 @@ let level = {
     minValue: 0
 }
 
-let API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
+const API = "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes";
+const DOIS_S = 2 * 1000;
 let response;
 let contadorPerguntas = 0;
 let acertos = 0;
@@ -436,7 +437,7 @@ function finalizarQuizz () {
     }
 
     //validações
-    if (validarNivel (tituloNivel, percentualNumero, descricao)) {
+    if (verificacaoNivel (tituloNivel, percentualNumero, descricao)) {
         alert ("Preencha os dados corretamente");
         return;
     }
@@ -488,7 +489,7 @@ function finalizarQuizz () {
     enviarQuizz ();
 }
 
-function validarNivel(tituloNivel, porcentagemAcerto, descricao) {
+function verificacaoNivel(tituloNivel, porcentagemAcerto, descricao) {
     let contador = 0;
     for (let i = 0; i < niveis; i++) {
         if (porcentagemAcerto[i] === 0) {
@@ -601,12 +602,12 @@ function exibirPerguntas (question) {
     caixaRespostas.classList.remove("vazia");
     caixaRespostas.classList.add(`pergunta-${contadorPerguntas}`);
 
-    setTimeout(proxPergunta, 2000);
+    setTimeout(proxPergunta, DOIS_S);
 }
 
 function proxPergunta () {
     const scrollar = document.querySelector(`.pagina-de-um-quizz .caixa-quizz .imagens-quizz.pergunta-${contadorPerguntas}`);
-    scrollar.scrollIntoView(false);
+    scrollar.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function cliqueResposta (elemento) {
@@ -636,7 +637,7 @@ function cliqueResposta (elemento) {
     if (contadorPerguntas < response.questions.length) {
         exibirPerguntas (response.questions[contadorPerguntas]);
     } else {
-        setTimeout(exibirNivel, 2000);
+        setTimeout(exibirNivel, DOIS_S);
     }
 }
 
@@ -672,5 +673,5 @@ function exibirNivel () {
     `;
 
     const scrollar = document.querySelector(".pagina-de-um-quizz .resposta-quizz");
-    scrollar.scrollIntoView();
+    scrollar.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
